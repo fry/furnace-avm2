@@ -85,7 +85,7 @@ shound_skip = ->(obj) {
 $stderr.puts "Reading input data..."
 
 abc = nil
-File.open(opts[:input]) do |file|
+File.open(opts[:input], 'rb') do |file|
   abc = AVM2::ABC::File.new
   abc.read(file)
 end
@@ -134,7 +134,7 @@ if opts[:wait]
   gets
 end
 
-trap("QUIT") {
+at_exit {
   puts "Backtrace:"
   puts caller
 }

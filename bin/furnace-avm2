@@ -66,7 +66,7 @@ if opts[:cfg] && !GRAPH_FORMATS.include?(opts[:cfg])
 end
 
 abc = nil
-File.open(opts[:input]) do |file|
+File.open(opts[:input], 'rb') do |file|
   abc = AVM2::ABC::File.new
   abc.read(file)
 end
@@ -109,7 +109,7 @@ if opts[:wait]
   gets
 end
 
-trap("QUIT") {
+at_exit {
   puts "Backtrace:"
   puts caller
 }
@@ -205,7 +205,7 @@ if opts[:collect] && failed.any?
 end
 
 if opts[:output]
-  File.open(opts[:output], "w") do |file|
+  File.open(opts[:output], "wb") do |file|
     abc.write(file)
   end
 end
